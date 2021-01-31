@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
   <head>
     <meta charset="utf-8" />
     <meta
@@ -7,12 +9,10 @@
     <title>
       Intro to FeatureLayer | Sample | ArcGIS API for JavaScript 4.17
     </title>
+    
 
-    <link
-      rel="stylesheet"
-      href="https://js.arcgis.com/4.17/esri/themes/light/main.css"
-    />
-    <script src="https://js.arcgis.com/4.17/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.18/"></script>
 
     <style>
       html,
@@ -27,10 +27,11 @@
 
     <script>
       require([
+        "esri/widgets/Track",
         "esri/Map",
         "esri/views/MapView",
         "esri/layers/FeatureLayer"
-      ], function (Map, MapView, FeatureLayer) {
+      ], function (Track, Map, MapView, FeatureLayer) {
         var map = new Map({
           basemap: "hybrid"
         });
@@ -53,6 +54,19 @@
         });
 
         map.add(featureLayer);
+        
+         // Create an instance of the Track widget
+        // and add it to the view's UI
+        var track = new Track({
+          view: view
+        });
+        view.ui.add(track, "top-left");
+
+        // The sample will start tracking your location
+        // once the view becomes ready
+        view.when(function() {
+          track.start();
+        });
       });
     </script>
   </head>
