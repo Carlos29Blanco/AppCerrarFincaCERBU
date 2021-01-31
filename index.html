@@ -1,9 +1,19 @@
-<!DOCTYPE html>
-<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>Intro to MapView - Create a 2D map | Sample | ArcGIS API for JavaScript 4.18</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>
+      Intro to FeatureLayer | Sample | ArcGIS API for JavaScript 4.17
+    </title>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.17/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.17/"></script>
+
     <style>
       html,
       body,
@@ -15,21 +25,34 @@
       }
     </style>
 
-    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css" />
-    <script src="https://js.arcgis.com/4.18/"></script>
-
     <script>
-      require(["esri/Map", "esri/views/MapView"], function(Map, MapView) {
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer"
+      ], function (Map, MapView, FeatureLayer) {
         var map = new Map({
-          basemap: "topo-vector"
+          basemap: "hybrid"
         });
 
         var view = new MapView({
           container: "viewDiv",
           map: map,
           scale: 25000,
-          center: [-5.94, 43.02] // longitude, latitude
+          center: [-5.94, 43.02]
         });
+
+        /********************
+         * Add feature layer
+         ********************/
+
+        // Carbon storage of trees in Warren Wilson College.
+        var featureLayer = new FeatureLayer({
+          url:
+            "https://services5.arcgis.com/lcYk8VO88CK2pmle/arcgis/rest/services/Ruta_Alternativa/FeatureServer"
+        });
+
+        map.add(featureLayer);
       });
     </script>
   </head>
