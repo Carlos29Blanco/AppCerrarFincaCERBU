@@ -79,9 +79,42 @@
                 availableFields: true,
             });
 
+            const parcelasMunon = new GeoJSONLayer({
+        url:
+            "https://raw.githubusercontent.com/Carlos29Blanco/cierreParcela/main/geoJSON/parcelasMunon.geojson",
+        copyright: "CERBU",
+        title: "Parcelas",
+        outFields: ['*'],
+        visible: true,
+        renderer: {
+            type: "simple",
+            symbol: {
+                type: "simple-fill",
+                color: [92, 92, 92, 0.01],
+                outline: {
+                    color: [155, 155, 155, 0.3],
+                    width: 1.25
+                }
+            }
+        },
+        supportsQuery: true,
+        popupTemplate: {
+            title: "Polígono: {MASA}," +
+                "<br>Parcela: {PARCELA}" +
+                "<br>Area: {Shape_Area}" +
+                "<br>Tipo: {TIPO}" +
+                "<br>Altitud: {ALTITUD}</br>",
+            /* content: getInfoComarcas, */
+            visible: false,
+            returnGeometry: true,
+        },
+
+
+    });
+
             const map = new Map({
                 basemap: "satellite",
-                layers: [miparcelasMunon]
+                layers: [miparcelasMunon, parcelasMunon]
             });
 
             const view = new MapView({
