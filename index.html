@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
-    <title>Locate button | Sample | ArcGIS API for JavaScript 4.25</title>
+    <title>App Cerrar Finca CERBU| ArcGIS API for JavaScript 4.25</title>
     <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css" />
     <style>
         html,
@@ -51,7 +51,7 @@
             /// DEFINICIÓN DEL LOS RUTA MIGRATORIA
             const miparcelasMunon = new GeoJSONLayer({
                 url: "https://raw.githubusercontent.com/Carlos29Blanco/TrankiMama/main/geoJSON/miParcelaMunon.geojson",
-                copyright: "UCM",
+                copyright: "CERBU",
                 title: "Mi parcela",
                 outFields: ["*"],
                 renderer: rendererMiParcela,
@@ -118,7 +118,7 @@
             const parcelasMunon = new GeoJSONLayer({
                 url:
                     "https://raw.githubusercontent.com/Carlos29Blanco/TrankiMama/main/geoJSON/parcelasMunon.geojson",
-                copyright: "CERBU",
+                /*copyright: "CERBU",*/
                 title: "Parcelas",
                 outFields: ['*'],
                 visible: true,
@@ -174,7 +174,7 @@
                 url:
                     "https://raw.githubusercontent.com/Carlos29Blanco/cierreParcela/main/geoJSON/postesCierre.geojson",
 
-                copyright: "Carlos Blanco Urbina",
+                copyright: "Carlos Eduardo Blanco Urbina",
                 title: "Postes",
                 renderer: renderer,
                 outFields: ['*'],
