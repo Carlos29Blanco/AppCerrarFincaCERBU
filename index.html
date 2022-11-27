@@ -52,7 +52,7 @@
             const miparcelasMunon = new GeoJSONLayer({
                 url: "https://raw.githubusercontent.com/Carlos29Blanco/TrankiMama/main/geoJSON/miParcelaMunon.geojson",
                 copyright: "UCM",
-                title: "Todas las rutas",
+                title: "Mi parcela",
                 outFields: ["*"],
                 renderer: rendererMiParcela,
                 popupTemplate: {
@@ -135,18 +135,18 @@
                 },
                 supportsQuery: true,
                 popupTemplate: {
-                    title: "Polígono: {MASA}," +
-                        "<br>Parcela: {PARCELA}" +
-                        "<br>Area: {Shape_Area}" +
-                        "<br>Tipo: {TIPO}" +
-                        "<br>Altitud: {ALTITUD}</br>",
+                    title: "<p>Polígono: <b>{MASA}</b> ",
+                    content: getInfoParcelas,
+
+
                     /* content: getInfoComarcas, */
                     visible: false,
                     returnGeometry: true,
                 },
 
-
             });
+
+
 
             const renderer = {
                 type: "simple",
@@ -160,22 +160,32 @@
                 },
             };
 
+            function getInfoParcelas(feature) {
+                content = "<ul><li>Parcela: {PARCELA}.</li>" +
+                    "<ul><li>Area: {Shape_Area}.</li>" +
+                    "<ul><li>Tipo: {TIPO}.</li>" +
+                    "<li>REFCAT: {REFCAT}.</li>";
+
+                return content;
+
+            }
+
             var postesCierre = new GeoJSONLayer({
                 url:
                     "https://raw.githubusercontent.com/Carlos29Blanco/cierreParcela/main/geoJSON/postesCierre.geojson",
 
                 copyright: "Carlos Blanco Urbina",
-                title: "Alertas",
+                title: "Postes",
                 renderer: renderer,
                 outFields: ['*'],
                 visible: true,
 
                 supportsQuery: true,
-                popupTemplate: {
+                /* popupTemplate: {
                     title: "Nivel de alerta: {Riesgo}" + " Fecha: {reportDate}" + "<a href='{informe}'></a>",
                     visible: true,
                     returnGeometry: true,
-                },
+                }, */
 
             })
 
