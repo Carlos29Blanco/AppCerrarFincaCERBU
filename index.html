@@ -50,7 +50,7 @@
 
             /// DEFINICIÓN DEL LOS RUTA MIGRATORIA
             const miparcelasMunon = new GeoJSONLayer({
-                url: "https://raw.githubusercontent.com/Carlos29Blanco/cierreParcela/main/geoJSON/miParcelaMunon.geojson",
+                url: "https://raw.githubusercontent.com/Carlos29Blanco/TrankiMama/main/geoJSON/miParcelaMunon.geojson",
                 copyright: "UCM",
                 title: "Todas las rutas",
                 outFields: ["*"],
@@ -74,47 +74,114 @@
                             ]
                         }
                     ] */
+
+                    /* label: "Nivel de riesgo",
+                    visualVariables: [
+
+                        {
+                            type: "color",
+                            field: "Riesgo",
+                            stops: [
+                                {
+                                    value: 1,
+                                    color: [255, 150, 150, 0.6],
+                                    label: "1"
+                                }, {
+                                    value: 2,
+                                    color: [255, 120, 120, 0.6],
+                                    label: "2"
+                                },
+                                {
+                                    value: 3,
+                                    color: [255, 80, 80, 0.6],
+                                    label: "3"
+                                },
+                                {
+                                    value: 4,
+                                    color: [255, 40, 40, 0.6],
+                                    label: "4"
+                                },
+                                {
+                                    value: 5,
+                                    color: [255, 0, 0, 0.6],
+                                    label: "5"
+                                }
+                            ]
+                        },
+
+                    ], */
                 },
                 visible: true,
                 availableFields: true,
             });
 
             const parcelasMunon = new GeoJSONLayer({
-        url:
-            "https://raw.githubusercontent.com/Carlos29Blanco/cierreParcela/main/geoJSON/parcelasMunon.geojson",
-        copyright: "CERBU",
-        title: "Parcelas",
-        outFields: ['*'],
-        visible: true,
-        renderer: {
-            type: "simple",
-            symbol: {
-                type: "simple-fill",
-                color: [92, 92, 92, 0.01],
-                outline: {
-                    color: [155, 155, 155, 0.3],
-                    width: 1.25
-                }
-            }
-        },
-        supportsQuery: true,
-        popupTemplate: {
-            title: "Polígono: {MASA}," +
-                "<br>Parcela: {PARCELA}" +
-                "<br>Area: {Shape_Area}" +
-                "<br>Tipo: {TIPO}" +
-                "<br>Altitud: {ALTITUD}</br>",
-            /* content: getInfoComarcas, */
-            visible: false,
-            returnGeometry: true,
-        },
+                url:
+                    "https://raw.githubusercontent.com/Carlos29Blanco/TrankiMama/main/geoJSON/parcelasMunon.geojson",
+                copyright: "CERBU",
+                title: "Parcelas",
+                outFields: ['*'],
+                visible: true,
+                renderer: {
+                    type: "simple",
+                    symbol: {
+                        type: "simple-fill",
+                        color: [92, 92, 92, 0.01],
+                        outline: {
+                            color: [155, 155, 155, 0.3],
+                            width: 1.25
+                        }
+                    }
+                },
+                supportsQuery: true,
+                popupTemplate: {
+                    title: "Polígono: {MASA}," +
+                        "<br>Parcela: {PARCELA}" +
+                        "<br>Area: {Shape_Area}" +
+                        "<br>Tipo: {TIPO}" +
+                        "<br>Altitud: {ALTITUD}</br>",
+                    /* content: getInfoComarcas, */
+                    visible: false,
+                    returnGeometry: true,
+                },
 
 
-    });
+            });
+
+            const renderer = {
+                type: "simple",
+                symbol: {
+                    type: "simple-marker",
+                    color: "orange",
+                    size: "5px",
+                    outline: {
+                        color: "white"
+                    }
+                },
+            };
+
+            var postesCierre = new GeoJSONLayer({
+                url:
+                    "https://raw.githubusercontent.com/Carlos29Blanco/cierreParcela/main/geoJSON/postesCierre.geojson",
+
+                copyright: "Carlos Blanco Urbina",
+                title: "Alertas",
+                renderer: renderer,
+                outFields: ['*'],
+                visible: true,
+
+                supportsQuery: true,
+                popupTemplate: {
+                    title: "Nivel de alerta: {Riesgo}" + " Fecha: {reportDate}" + "<a href='{informe}'></a>",
+                    visible: true,
+                    returnGeometry: true,
+                },
+
+            })
 
             const map = new Map({
                 basemap: "satellite",
-                layers: [miparcelasMunon, parcelasMunon]
+                layers: [miparcelasMunon, parcelasMunon, postesCierre]
             });
 
             const view = new MapView({
