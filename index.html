@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
-    <title>Locate button | Sample | ArcGIS API for JavaScript 4.25</title>
+    <title>AppCerrarFincaCERBU | ArcGIS API for JavaScript 4.25</title>
     <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css" />
     <style>
         html,
@@ -25,7 +25,11 @@
             "esri/symbols/LineSymbol3DLayer",
             "esri/symbols/LineSymbol3D",
             "esri/renderers/SimpleRenderer",
-            "esri/widgets/Home"], (
+            "esri/widgets/Home",
+            "esri/widgets/LayerList",
+            "esri/widgets/Legend",
+            "esri/widgets/Expand",
+            "esri/widgets/Editor"], (
                 Map,
                 MapView,
                 Locate,
@@ -33,7 +37,11 @@
                 LineSymbol3DLayer,
                 LineSymbol3D,
                 SimpleRenderer,
-                Home
+                Home,
+                LayerList,
+                Legend,
+                Expand,
+                Editor
             ) => {
 
             var lineSymbol = {
@@ -49,8 +57,8 @@
             });
 
             /// DEFINICIÓN DEL LOS RUTA MIGRATORIA
-            const miparcelasMunon = new GeoJSONLayer({
-                url: "https://raw.githubusercontent.com/Carlos29Blanco/TrankiMama/main/geoJSON/miParcelaMunon.geojson",
+            const miparcelaMunon = new GeoJSONLayer({
+                url: "https://raw.githubusercontent.com/Carlos29Blanco/AppCerrarFincaCERBU/main/geoJSON/miParcelaMunon.geojson",
                 copyright: "UCM",
                 title: "Mi parcela",
                 outFields: ["*"],
@@ -190,7 +198,7 @@
 
             const map = new Map({
                 basemap: "satellite",
-                layers: [miparcelasMunon, parcelasMunon, postesCierre]
+                layers: [parcelasMunon, postesCierre, miparcelaMunon]
             });
 
             const view = new MapView({
@@ -214,6 +222,41 @@
                 view: view,
 
             });
+
+            // Agregar la leyenda
+            const legendExpand = new Expand({
+                collapsedIconClass: "esri-icon-legend",
+                expandIconClass: "esri-icon-legend",
+                expandTooltip: "Legend",
+                view: view,
+                content: new Legend({
+                    view: view
+                }),
+                expanded: false
+            });
+            view.ui.add(legendExpand, "top-right");
+
+            // Agregar la layerList
+            const layerListExpand = new Expand({
+                collapsedIconClass: "esri-icon-layers",
+                expandIconClass: "esri-icon-layers",
+                expandTooltip: "LayerList",
+                view: view,
+                content: new LayerList({
+                    view: view
+                }),
+                expanded: false
+            });
+            view.ui.add(layerListExpand, "top-left");
+
+
+            /* // At the very minimum, set the Editor's view
+            const editor = new Editor({
+                view: view
+            });
+
+            view.ui.add(editor, "top-right"); */
+
 
             // Add the home button to the top left corner of the view
             view.ui.add(homeBtn, "top-left");
